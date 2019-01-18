@@ -97,6 +97,8 @@ def crawl_detail_page_save_as_mongo():
     # 获得当前时间
     # 结构 time.struct_time(tm_year=2019, tm_mon=1, tm_mday=8, tm_hour=15, tm_min=50, tm_sec=27, tm_wday=1, tm_yday=8, tm_isdst=0) wday ： 0到 6
     localtime = time.localtime(time.time())
+    # 获得当前的时间，并将它转换成这种格式 ： 2019-01-08
+    date = datetime.datetime.now().strftime('%Y-%m-%d')
     # 重试5次
     for retry in range(0, 5):
         if retry == 0:
@@ -117,8 +119,6 @@ def crawl_detail_page_save_as_mongo():
         # 清空没有找到的IDS
         not_found_list.clear()
         # 循环从IDS中获得ID，并进行相应的操作
-        # 获得当前的时间，并将它转换成这种格式 ： 2019-01-08
-        date = datetime.datetime.now().strftime('%Y-%m-%d')
         for x in links:
             try:
                 # 如果jd数据库中没有找到这个ID的商品那么，就进行下面的操作
@@ -178,12 +178,19 @@ def crawl_detail_page_save_as_mongo():
                 not_found_list.append(x)
                 print(str(x) + ' : ' + str(e))
         writeFile('./IDS_JD_REST',not_found_list)
-        # 从group表中获得所有以jd开头的skuid
-        cursor.execute('select default_id from t_group where default_id like %s;'
-                       , ['%jd%'])
-        # 读出来的是一个二维数组，需要把二维数组中每个元素的第一个元素拿出，就形成id了。
-        links = [x[0].replace('jd','') for x in cursor.fetchall()]
-        print(links)
+
+        # parse_as_opinion_and_impress()
+    # 印象标签和好评率就不再retry了
+    # cursor.execute('select skuid from t_id_pool where source = %s;'
+    #                , ['京东'])
+    # links = [x[0] for x in cursor.fetchall()]
+    # 从group表中获得所有以jd开头的skuid
+    cursor.execute('select default_id from t_group where default_id like %s;'
+                   , ['%jd%'])
+    # 读出来的是一个二维数组，需要把二维数组中每个元素的第一个元素拿出，就形成id了。
+    links = [x[0].replace('jd', '') for x in cursor.fetchall()]
+    print(links)
+    for x in links:
         res = parse_as_opinion_and_impress(x, date)
         print(res['opinion'].__dict__)
         save_to_mongo_as_a_array('opinions', res['opinion']._id, res['opinion'].id, 'opinion_value',
@@ -192,11 +199,6 @@ def crawl_detail_page_save_as_mongo():
         save_to_mongo_as_a_array('impresses', res['opinion']._id, res['impress'].id, 'impress_value',
                                  res['impress'].impress)
         res['impress'].impress.clear()
-        # parse_as_opinion_and_impress()
-    # 印象标签和好评率就不再retry了
-    # cursor.execute('select skuid from t_id_pool where source = %s;'
-    #                , ['京东'])
-    # links = [x[0] for x in cursor.fetchall()]
 
 
 
@@ -316,6 +318,7 @@ def parse_as_phone(x, selector):
     # phone.description = ''
     phone.model = selector.xpath('//ul[@class="parameter2 p-parameter-list"]').re('商品名称：(.*?)</li>')[0].replace(' ','').lower()
     return phone
+
 
 # 京东价格API：
 # https://c0.3.cn/stock?skuId=8245366&cat=9987,653,655&area=1_72_2799_0&extraParam={%22originid%22:%221%22}

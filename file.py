@@ -53,3 +53,5 @@ def save_ids_to_mysql(db_name , table_name , links , source):
             db.rollback()
     # 关闭数据库连接
     db.close()
+
+

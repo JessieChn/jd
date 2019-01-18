@@ -8,11 +8,17 @@ print(localtime)
 date = datetime.datetime.now().strftime('%Y-%m-%d')
 print(date)
 
+import pymongo
+# 连接mongodb数据库
+client = pymongo.MongoClient('localhost')
+# 连接到jd数据库
+db = client['jd']
+
 # 打开数据库连接
-db = pymysql.connect("localhost", "root", "root", "test")
+db_mysql = pymysql.connect("localhost", "root", "root", "test")
 
 # 使用cursor()方法获取操作游标
-cursor = db.cursor()
+cursor = db_mysql.cursor()
 
 # SQL 插入语句
 # sql = """INSERT INTO t_group(name,
@@ -24,22 +30,37 @@ cursor = db.cursor()
 #                 '小米',
 #                 'jd6600258')"""
 # sql = 'select * from t_group where ram = %s and rom = %s and model = %s;'
-sql = 'insert into t_item (id, name, url, source , group_id) values ( "%s",  "%s" , "%s" , "%s" , "%s")' % ('JD123456','2','3','4' ,'5')
+# sql = 'insert into t_item (id, name, url, source , group_id) values ( "%s",  "%s" , "%s" , "%s" , "%s")' % ('JD123456','2','3','4' ,'5')
+#
+# try:
+#     # 执行sql语句
+#     cursor.execute(sql)
+#     # 提交到数据库执行
+#     db.commit()
+#     # ret1 = cursor.rowcount
+#     # print(ret1)
+# except Exception as e:
+#     # 如果发生错误则回滚
+#     print(e)
+#     db.rollback()
 
-try:
-    # 执行sql语句
-    cursor.execute(sql)
-    # 提交到数据库执行
-    db.commit()
-    # ret1 = cursor.rowcount
-    # print(ret1)
-except Exception as e:
-    # 如果发生错误则回滚
-    print(e)
-    db.rollback()
+
+cursor.execute('select model, default_id from t_group where default_id like "%vip%";')
+#links = [x[0] for x in cursor.fetchall()]
+#default_ids = [x[1] for x in cursor.fetchall()]
+#print(links)
+#print(default_ids)
+for x in cursor.fetchall():
+    # 型号
+    print(x[0])
+    # id
+    print(x[1])
+    phone = db['phone'].find_one({'model': x[0]})
+    print(phone)
+
 
 # 关闭数据库连接
-db.close()
+db_mysql.close()
 # 插入数据
 # 'insert into t_group (name, ram, rom, model, brand, default_id) values( "%s",  "%s" , "%s" , "%s" , "%s" , "%s" )' % (phone.name, phone.ram , phone.rom , phone.model , phone.brand , phone.id)
 # 京东价格api , 莞城API
