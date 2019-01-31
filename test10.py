@@ -55,5 +55,3 @@ for x in links:
                 if skuMap[key]['stock'] > 0:
                     print(y['names'])
                     print(skuMap[key]['price'])
-
-    #json.loads()
