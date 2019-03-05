@@ -25,7 +25,7 @@ for x in detail_links:
     # print(result)
     param_obj = parse.parse_qs(result.query)
     # print(param_obj)
-    # skuIdµÄ IÒª´óÐ´£¡£¡£¡ ÎÒ²Á
+    # skuIdï¿½ï¿½ IÒªï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò²ï¿½
     x = 'https://detail.tmall.com/item.htm?id='+param_obj['id'][0]+'&skuId='+param_obj['skuId'][0]+'&areaId='+param_obj['areaId'][0]
     print(x)
     response = requests.get(x, headers = detail_header, verify=False)
@@ -35,9 +35,9 @@ for x in detail_links:
     if skuList:
         skuList = skuList[0] + ']'
         print(skuList)
-        # ¸ñÊ½£º¶ÔÏóÊý×é
+        # ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         #     {
-        #         "names":"ÎÞÐèºÏÔ¼°æ ÒøÉ« 64GB ",
+        #         "names":"ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ ï¿½ï¿½É« 64GB ",
         #         "pvs":"10004:709990523;1627207:28330;12304035:3222911",
         #         "skuId":"3472379124294"
         #     }
@@ -47,7 +47,7 @@ for x in detail_links:
             skuMap = skuMap[0] + '}}'
             skuMap = json.loads(skuMap)
         for y in skuList:
-            if ('¹Ù·½±êÅä' in y['names'] or ('ÎÞÐèºÏÔ¼°æ' in y['names'] and 'Ì×²Í' not in y['names'])) and 'Ô¤ÊÛ' not in y['names']:
+            if ('ï¿½Ù·ï¿½ï¿½ï¿½ï¿½ï¿½' in y['names'] or ('ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½' in y['names'] and 'ï¿½×²ï¿½' not in y['names'])) and 'Ô¤ï¿½ï¿½' not in y['names']:
                 key = ';' + y['pvs'] + ';'
                 # print(key)
                 if skuMap[key]['stock'] > 0:
@@ -63,53 +63,53 @@ for x in detail_links:
 #
 # import re
 # import pymysql
-# # ´ò¿ªÊý¾Ý¿âÁ¬½Ó
+# # ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 # db_mysql = pymysql.connect("localhost", "root", "root", "test")
-# # Ê¹ÓÃcursor()·½·¨»ñÈ¡²Ù×÷ÓÎ±ê
+# # Ê¹ï¿½ï¿½cursor()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½
 # cursor = db_mysql.cursor()
-# # ´Ógroup±íÖÐ»ñµÃ distinctµÄ model
+# # ï¿½ï¿½groupï¿½ï¿½ï¿½Ð»ï¿½ï¿½ distinctï¿½ï¿½ model
 # cursor.execute('select distinct model from t_group')
-# # ¶Á³öÀ´µÄÊÇÒ»¸ö¶þÎ¬Êý×é£¬ÐèÒª°Ñ¶þÎ¬Êý×éÖÐÃ¿¸öÔªËØµÄµÚÒ»¸öÔªËØÄÃ³ö£¬¾ÍÐÎ³ÉidÁË¡£
+# # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½é£¬ï¿½ï¿½Òªï¿½Ñ¶ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ôªï¿½ØµÄµï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½idï¿½Ë¡ï¿½
 # links = [x[0] for x in cursor.fetchall()]
 # print(links)
 #
-# links2 = ['Apple/Æ»¹û iPhone 8 Plus', 'Apple/Æ»¹û iPhone 8', 'Apple/Æ»¹û iPhone X', 'Apple/Æ»¹û iPhone XS Max', 'Xiaomi/Ð¡Ã× Ð¡Ã×8', 'Huawei/»ªÎª P20 Pro', 'Huawei/»ªÎª Mate 20 X', 'honor/ÈÙÒ« ÈÙÒ«8X', 'OPPO R17', 'Xiaomi/Ð¡Ã× ºìÃ×6a', 'Huawei/»ªÎª Mate 20 Pro', 'honor/ÈÙÒ« ÈÙÒ«magic 2', 'honor/ÈÙÒ« ³©Íæ8C', 'vivo NEXË«ÆÁ°æ', 'vivo X23»Ã²Ê°æ', 'Xiaomi/Ð¡Ã× Redmi Note 7', 'Samsung/ÈýÐÇ Galaxy S9+ SM-G9650/DS', 'OPPO Find X', 'Meizu/÷È×å 16th', 'nubia/Å¬±ÈÑÇ Å¬±ÈÑÇ X', '360 n7Pro', 'Apple/Æ»¹û iPhone 6s', 'Samsung/ÈýÐÇ GALAXY Note9 SM-N9600', 'vivo X21', 'Xiaomi/Ð¡Ã× ºìÃ×6', 'Meizu/÷È×å 16 x', 'honor/ÈÙÒ« ÈÙÒ«V10', 'Huawei/»ªÎª ³©Ïí8e', 'OnePlus/Ò»¼Ó A6010', 'vivo Z1Çà´º°æ', 'vivo Y73', 'honor/ÈÙÒ« ÈÙÒ«10Çà´º°æ', 'honor/ÈÙÒ« ÈÙÒ«8X MAX', 'OnePlus/Ò»¼Ó A6000', 'Huawei/»ªÎª mate 10 pro', 'honor/ÈÙÒ« ÈÙÒ«9i', 'OPPO R17ÐÂÄê°æ', 'honor/ÈÙÒ« ³©Íæ7X', 'Huawei/»ªÎª Mate 10 6G+128G', 'ºÚöè ÓÎÏ·ÊÖ»ú Helo', 'Sony/Ë÷Äá H9493', 'Xiaomi/Ð¡Ã× Ð¡Ã×ÊÖ»ú6', 'nubia/Å¬±ÈÑÇ Z18', 'Xiaomi/Ð¡Ã× Ð¡Ã×mix 2', 'Huawei/»ªÎª ³©Ïí8 Plus', 'Huawei/»ªÎª nova 3e', 'OPPO R15x È«ÍøÍ¨', 'nubia/Å¬±ÈÑÇ ºìÄ§', '360 N7', 'Huawei/»ªÎª ³©Ïí6', 'nubia/Å¬±ÈÑÇ ºìÄ§µç¾ºÓÎÏ·ÊÖ»ú', 'Huawei/»ªÎª nova 2s', 'honor/ÈÙÒ« ³©Íæ7', 'Lenovo/ÁªÏë Z5S', 'OPPO A1', 'Meizu/÷È×å ÷È×å V8', 'Lenovo/ÁªÏë Z5 Pro', 'Meizu/÷È×å ÷ÈÀ¶ S6', 'Meizu/÷È×å ÷ÈÀ¶6t', 'ZTE/ÖÐÐË Z999', 'Lenovo/ÁªÏë Z5S', 'Lenovo/ÁªÏë Z5', 'honor/ÈÙÒ« ÈÙÒ«8Çà´º°æ', 'ZTE/ÖÐÐË A3', 'K-Touch/ÌìÓï X15', 'Lenovo/ÁªÏë Z5 Pro', 'ZTE/ÖÐÐË A0620', 'Ð¡À±½· ºìÀ±½·7X', 'K-Touch/ÌìÓï X21', 'Lenovo/ÁªÏë K5 pro', 'Ð¡À±½· ºìÀ±½·7p', 'Philips/·ÉÀûÆÖ S562Z', 'Philips/·ÉÀûÆÖ E289', 'K-Touch/ÌìÓï X11', 'Å¦Âü P10', 'honor/ÈÙÒ« ³©Íæ6A', 'Coolpad/¿áÅÉ 1872-A0 ¿áÍæ7 ÌìÃ¨Ê®ÖÜÄê¶¨ÖÆ°æ', 'Apple/Æ»¹û iPhone 6', 'Coolpad/¿áÅÉ 1873-A0', 'vivo Y83', 'Apple/Æ»¹û iPhone XR', 'Xiaomi/Ð¡Ã× ºìÃ×6a', 'Xiaomi/Ð¡Ã× 6X', 'Huawei/»ªÎª Mate 20', 'Huawei/»ªÎª Mate 20 X', 'Apple/Æ»¹û iPhone 7 Plus', 'Apple/Æ»¹û iPhone XS', 'honor/ÈÙÒ« ÈÙÒ«V20', 'Samsung/ÈýÐÇ Galaxy S9 SM-G9600/DS', 'OPPO Find XÀ¼²©»ùÄá°æ', 'OPPO Find X', 'honor/ÈÙÒ« ÈÙÒ«V10', 'honor/ÈÙÒ« ÈÙÒ«10Çà´º°æ', 'Huawei/»ªÎª ³©Ïí8e', 'Samsung/ÈýÐÇ GALAXY S8 SM-G9500', 'vivo Z3', 'Huawei/»ªÎª nova 2s', 'vivo NEX Æì½¢°æ', 'Meizu/÷È×å X8', 'Xiaomi/Ð¡Ã× ºÚöèÓÎÏ·ÊÖ»ú Helo', 'Xiaomi/Ð¡Ã× ºìÃ×5 plus', 'Meizu/÷È×å note8', 'Meizu/÷È×å ÷È×å 15 PLUS', 'Meizu/÷È×å ÷È×å M15', 'nubia/Å¬±ÈÑÇ z18mini', 'nubia/Å¬±ÈÑÇ V18', '360 N7Lite', 'ZTE/ÖÐÐË Blade A4', 'ZTE/ÖÐÐË V0840', 'Xiaomi/Ð¡Ã× Ð¡Ã×NOTE 3', 'Lenovo/ÁªÏë S5 Pro GT', 'Xiaomi/Ð¡Ã× ºìÃ×ÊÖ»ú4', 'Huawei/»ªÎª Mate 9', 'Lenovo/ÁªÏë K5s', 'Huawei/»ªÎª »ªÎª³©Ïí5S', 'honor/ÈÙÒ« ÈÙÒ«8Çà´º°æ ¸ßÅä°æ', 'honor/ÈÙÒ« ³©Íæ6È«ÍøÍ¨', 'Xiaomi/Ð¡Ã× ºìÃ×ÊÖ»ú4A', 'Huawei/»ªÎª ³©Ïí7 Plus ¸ßÅä', 'Huawei/»ªÎª c8818', 'Samsung/ÈýÐÇ GALAXY C8 SM-C7100', 'Samsung/ÈýÐÇ SM-W2018', 'Huawei/»ªÎª Mate RS ±£Ê±½ÝÉè¼Æ', 'vivo Y97', 'Samsung/ÈýÐÇ SM-G9298', 'Samsung/ÈýÐÇ GALAXY S4 GT-I9507V', 'Samsung/ÈýÐÇ SM-G5520', 'Samsung/ÈýÐÇ GALAXY Note4 SM-N9100', 'Samsung/ÈýÐÇ GALAXY Note8 SM-N9500', 'vivo Y81s', 'Huawei/»ªÎª ³©Ïí7 Plus ±êÅä', 'OPPO R17 ProÈ«ÍøÍ¨', 'Samsung/ÈýÐÇ SM-W2017', 'vivo Y93', 'honor/ÈÙÒ« ÈÙÒ«V9 playÈ«ÍøÍ¨', 'Xiaomi/Ð¡Ã× ºìÃ× S2', 'Huawei/»ªÎª ³©Ïí5', 'Samsung/ÈýÐÇ SM-A7000', 'Samsung/ÈýÐÇ GALAXY S6 SM-G9209', 'Lenovo/ÁªÏë A5', 'Huawei/»ªÎª Mate 10 ±£Ê±½ÝÉè¼Æ', 'honor/ÈÙÒ« V8', 'Ð¡À±½· S6', 'OPPO A7', 'honor/ÈÙÒ« ³©Íæ4C', 'honor/ÈÙÒ« ³©Íæ6X È«ÍøÍ¨¸ßÅä°æ', 'vivo X9S', 'vivo X21ÆÁÄ»Ö¸ÎÆ°æ', 'Meizu/÷È×å ÷ÈÀ¶ Note6', 'OPPO K1È«ÃæÆÁ', 'vivo Z1i', 'OPPO R15x', 'OPPO R15', 'OPPO R17 È«ÃæÆÁ', 'OPPO A3', 'Huawei/»ªÎª ³©Ïí 8e Çà´º', 'Xiaomi/Ð¡Ã× ºìÃ×Note3 È«ÍøÍ¨¸ßÅä°æ', 'Huawei/»ªÎª Mate8È«ÍøÍ¨ 4G', 'OPPO R17 È«ÍøÍ¨', 'K-Touch/ÌìÓï 8848', 'Huawei/»ªÎª nova 3', 'honor/ÈÙÒ« ÈÙÒ«magic 2', 'honor/ÈÙÒ« ÈÙÒ«10', 'Xiaomi/Ð¡Ã× Ð¡Ã×MIX 3', 'Xiaomi/Ð¡Ã× Ð¡Ã×8 Çà´º°æ', 'OPPO K1', 'Huawei/»ªÎª ³©Ïí MAX', 'Huawei/»ªÎª ³©Ïí8e', 'vivo X23', 'OPPO R17ÐÂÄê°æ', 'honor/ÈÙÒ« ³©Íæ7A', 'vivo Z1Çà´º°æ', 'Samsung/ÈýÐÇ Galaxy S8+ SM-G9550 6+128GB', 'Huawei/»ªÎª Mate 20 RS ±£Ê±½ÝÉè¼Æ', 'Samsung/ÈýÐÇ SM-W2019', 'honor/ÈÙÒ« ÈÙÒ«³©Íæ8A', 'Huawei/»ªÎª ³©Ïí7 Plus ¸ßÅä', 'Xiaomi/Ð¡Ã× ºÚöèÓÎÏ·ÊÖ»ú Helo', 'Meizu/÷È×å ÷È×å V8', 'Meizu/÷È×å ÷È×å V8 ¸ßÅä', 'nubia/Å¬±ÈÑÇ z17s', 'Xiaomi/Ð¡Ã× Ð¡Ã×MIX', 'Lenovo/ÁªÏë S5 Pro', 'Xiaomi/Ð¡Ã× Ð¡Ã×8 Í¸Ã÷Ì½Ë÷°æ', 'Lenovo/ÁªÏë S5', 'honor/ÈÙÒ« ÈÙÒ«8Çà´º°æ ±êÅä°æ', 'honor/ÈÙÒ« ÈÙÒ«8 3GB+32GB È«ÍøÍ¨°æ', 'honor/ÈÙÒ« ÈÙÒ«V9×ðÏí°æ', 'honor/ÈÙÒ« ³©Íæ6X È«ÍøÍ¨±êÅä°æ', 'Samsung/ÈýÐÇ Galaxy Folder2 SM-G1650', 'Samsung/ÈýÐÇ Galaxy A9 Star SM-G8850', 'Samsung/ÈýÐÇ Galaxy Folder SM-G1600', 'Samsung/ÈýÐÇ Galaxy A9 SM-A9000', 'Samsung/ÈýÐÇ Galaxy S7 Edge SM-G9350', 'Samsung/ÈýÐÇ SM-W2016', 'Samsung/ÈýÐÇ GALAXY C8 SM-C7108', 'Samsung/ÈýÐÇ SM-G9280', 'Samsung/ÈýÐÇ SM-G7108V', 'Xiaomi/Ð¡Ã× ºìÃ×4A 16G', 'vivo Y69', 'Huawei/»ªÎª mate8 ÒÆ¶¯°æ', 'honor/ÈÙÒ« ÈÙÒ«9È«ÍøÍ¨', 'OPPO Find X È«ÍøÍ¨', 'Xiaomi/Ð¡Ã× Ð¡Ã×Max 16GB', 'OPPO R17 ProÐÂÄê°æ', 'Meizu/÷È×å ÷ÈÀ¶6', 'Meizu/÷È×å ÷ÈÀ¶E2', 'Huawei/»ªÎª P9 plus', 'Meizu/÷È×å ÷ÈÀ¶5', 'OPPO R15ÃÎ¾µ°æ', 'Huawei/»ªÎª G9 Plus', 'Meizu/÷È×å ÷ÈÀ¶EÈ«ÍøÍ¨', 'OnePlus/Ò»¼Ó A5010', 'Meizu/÷È×å ÷ÈÀ¶U20', 'honor/ÈÙÒ« V8ÒÆ¶¯ÁªÍ¨°æ', 'honor/ÈÙÒ« ÈÙÒ«V9±êÅä°æ', '360 N6', 'Coolpad/¿áÅÉ 1831-A0', 'Ð¡À±½· 7x', 'ZTE/ÖÐÐË A2019 Pro', 'Coolpad/¿áÅÉ C106-9', 'Ð¡À±½· ºìÀ±½·R15', 'ºÚöè ÓÎÏ·ÊÖ»ú', 'Sony/Ë÷Äá G8142', '360 N6Pro', 'Philips/·ÉÀûÆÖ S351F', '360 vizza', 'Lenovo/ÁªÏë K10e70', 'Sony/Ë÷Äá Xperia XZ2 Premium', 'Philips/·ÉÀûÆÖ v800', 'Philips/·ÉÀûÆÖ E256S', 'Coolpad/¿áÅÉ C106', 'ZTE/ÖÐÐË L518', 'nubia/Å¬±ÈÑÇ Z17 ³©Ïí°æ', 'Ð¡À±½· 4A£¨¸ßÅä£©', 'Philips/·ÉÀûÆÖ E171L', 'Coolpad/¿áÅÉ 1831-A0 ¿áÍæ7C ÌìÃ¨Ê®ÖÜÄê¶¨ÖÆ°æ', 'nubia/Å¬±ÈÑÇ M2³©Íæ°æ', 'ZTE/ÖÐÐË bv0800', 'ZTE/ÖÐÐË L680', 'Huawei/»ªÎª P20', 'vivo X23»Ã²Ê°æ', 'Xiaomi/Ð¡Ã× ºìÃ×Note5', 'Xiaomi/Ð¡Ã× Ð¡Ã×8SE', 'Huawei/»ªÎª ³©Ïí8', 'Huawei/»ªÎª ³©Ïí8e', 'OPPO A7X', 'OPPO Find X³¬¼¶ÉÁ³ä°æ', 'Huawei/»ªÎª Mate 20 RS ±£Ê±½ÝÉè¼Æ', 'Samsung/ÈýÐÇ Galaxy A6S SM-G6200', 'Samsung/ÈýÐÇ Galaxy A9S SM-A9200', 'vivo NEXÈ«ÃæÆÁ', 'vivo x21i', 'Meizu/÷È×å ÷ÈÀ¶ E3', 'Huawei/»ªÎª Mate 9', 'Samsung/ÈýÐÇ Galaxy Folder2 SM-G1650', 'Xiaomi/Ð¡Ã× Ð¡Ã×ÊÖ»ú6 È«ÍøÍ¨', 'Xiaomi/Ð¡Ã× Ð¡Ã×max2', 'honor/ÈÙÒ« ³©Íæ5A', 'honor/ÈÙÒ« ÈÙÒ«V9È«ÍøÍ¨', 'honor/ÈÙÒ« ÈÙÒ«V9È«ÍøÍ¨¸ßÅä°æ', 'honor/ÈÙÒ« ³©Íæ6X ¸ßÅä°æ', 'Samsung/ÈýÐÇ SM-J3110', 'Samsung/ÈýÐÇ Galaxy C5 SM-C5000', 'Samsung/ÈýÐÇ SM-J3308', 'Samsung/ÈýÐÇ Galaxy on5 G5500', 'Samsung/ÈýÐÇ Galaxy C5 Pro SM-C5010', 'honor/ÈÙÒ« ÈÙÒ«6', 'Huawei/»ªÎª G9 Çà´º°æ', 'Meizu/÷È×å ÷ÈÀ¶5È«ÍøÍ¨', 'Meizu/÷È×å ÷ÈÀ¶U20È«ÍøÍ¨', 'nubia/Å¬±ÈÑÇ z17 mini', 'Coolpad/¿áÅÉ VCR-A0', 'Ð¡À±½· 7P', 'Ð¡À±½· ºìÀ±½·Note6X', 'ZTE/ÖÐÐË bv0800', 'ZTE/ÖÐÐË BA602', 'Philips/·ÉÀûÆÖ X598', 'ZTE/ÖÐÐË BA601', 'Philips/·ÉÀûÆÖ E218L', 'Philips/·ÉÀûÆÖ E207l', 'Coolpad/¿áÅÉ 5380CA', 'Philips/·ÉÀûÆÖ E212A', 'Coolpad/¿áÅÉ Y91-921', 'ZTE/ÖÐÐË A606', 'Lenovo/ÁªÏë K320t', '360 N6 Lite', 'K-Touch/ÌìÓï T9C', '360 F4S', 'ZTE/ÖÐÐË V0920', 'Å¦Âü R11', 'Lenovo/ÁªÏë A806', 'K-Touch/ÌìÓï T5', 'HTC U¡ª1w', 'ZTE/ÖÐÐË BA610C', 'Lenovo/ÁªÏë A3500', 'ZTE/ÖÐÐË BA510', 'ZTE/ÖÐÐË BA603', 'nubia/Å¬±ÈÑÇ Z17mini 6G°æ', 'Å¦Âü NX1', 'Å¦Âü l6+', 'Å¦Âü C9', 'Å¦Âü F189', 'Philips/·ÉÀûÆÖ E107', 'Å¦Âü L8S', 'Coolpad/¿áÅÉ S518', 'Å¦Âü V1', 'Å¦Âü A688', 'Å¦Âü F9C', 'Å¦Âü L99', 'Ð¡À±½· L9', 'Ð¡À±½· G2', 'Å¦Âü F518', 'Å¦Âü V98', 'Philips/·ÉÀûÆÖ E160', 'Ð¡À±½· G108', 'Å¦Âü L660S', 'K-Touch/ÌìÓï T2', 'Å¦Âü V7', 'Å¦Âü L9', 'Huawei/»ªÎª nova 3i', 'Huawei/»ªÎª ³©Ïí9', 'Xiaomi/Ð¡Ã× MIX 2S', 'Xiaomi/Ð¡Ã× ºìÃ×6', 'Huawei/»ªÎª ³©Ïí 8e Çà´º', 'Huawei/»ªÎª Mate 20 RS ±£Ê±½ÝÉè¼Æ', 'OPPO R15x È«ÍøÍ¨', 'OPPO K1È«ÍøÍ¨', 'Xiaomi/Ð¡Ã× Ð¡Ã×Note 2', 'Xiaomi/Ð¡Ã× ºìÃ×Note4', 'Huawei/»ªÎª P8±ê×¼°æ', 'Huawei/»ªÎª ÂóÃ¢6', 'honor/ÈÙÒ« ÈÙÒ«9', 'honor/ÈÙÒ« ³©Íæ6X ×ðÏí°æ', 'Samsung/ÈýÐÇ SM-A5108', 'Samsung/ÈýÐÇ Galaxy S7 SM-G9308', 'Samsung/ÈýÐÇ Galaxy SM-J5008', 'Samsung/ÈýÐÇ ÈýÐÇ GALAXY On5 SM-5510', 'Samsung/ÈýÐÇ GALAXY Note 3 SM-N9009', 'Samsung/ÈýÐÇ SM-A5009', 'Meizu/÷È×å ÷ÈÀ¶A5', 'Meizu/÷È×å MX5 ¹«¿ª°æ', 'vivo X21 FIFAÊÀ½ç±­·Ç·²°æ', 'Coolpad/¿áÅÉ C106-8', 'ZTE/ÖÐÐË Ô¶º½4S', 'Coolpad/¿áÅÉ C106£¨È«ÍøÍ¨£©', 'Ð¡À±½· V11', 'K-Touch/ÌìÓï 8818', 'Philips/·ÉÀûÆÖ E209J', 'Philips/·ÉÀûÆÖ E258S', 'Ð¡À±½· ºìÀ±½·GM-Q8', 'Ð¡À±½· 4A', 'Ð¡À±½· 6p', 'ZTE/ÖÐÐË L530G', 'Ð¡À±½· A1', 'Ð¡À±½· ºìÀ±½· ³©Íæ6A', 'ZTE/ÖÐÐË A2017', 'Ð¡À±½· ºìÀ±½·ÈÎÐÔ°æPlus', 'Å¦Âü M560C', 'Å¦Âü L66', 'Å¦Âü X8', 'K-Touch/ÌìÓï L660C', 'Ð¡À±½· g109', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËL518', 'K-Touch/ÌìÓï H998', 'Å¦Âü C9S', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËL800', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËK188', 'K-Touch/ÌìÓï T2S', 'Å¦Âü Q99+', 'Ð¡À±½· H1', 'K-Touch/ÌìÓï N1', 'Å¦Âü A520', 'vivo X21s', 'Coolpad/¿áÅÉ S628', 'Å¦Âü C5', 'Å¦Âü Q99', 'Å¦Âü N99', 'Å¦Âü F1', 'Coolpad/¿áÅÉ S688', 'Å¦Âü L8', 'Coolpad/¿áÅÉ ART-T0', 'ZTE/ÖÐÐË S158', 'Philips/·ÉÀûÆÖ E255', 'Philips/·ÉÀûÆÖ E180', 'Philips/·ÉÀûÆÖ E170', 'Coolpad/¿áÅÉ MTS-T0', 'Coolpad/¿áÅÉ V18', 'Philips/·ÉÀûÆÖ E105', 'ZTE/ÖÐÐË CCV19', 'Philips/·ÉÀûÆÖ E151Y', 'Å¦Âü F516', 'Philips/·ÉÀûÆÖ e181', 'ZTE/ÖÐÐË F555', 'ZTE/ÖÐÐË CV26', 'ÊØ»¤±¦ L105', 'ZTE/ÖÐÐË L550', 'Å¦Âü L99S', 'Å¦Âü X6+', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËCV28', 'Apple/Æ»¹û iPhone 7', 'Xiaomi/Ð¡Ã× Ð¡Ã×Max3', 'Xiaomi/Ð¡Ã× Ð¡Ã×8 ÆÁÄ»Ö¸ÎÆ°æ', 'OPPO R17 Pro', 'ºÚöè ÓÎÏ·ÊÖ»ú Helo', 'honor/ÈÙÒ« ³©Íæ7C', 'OPPO A5È«ÍøÍ¨', 'OPPO A1', 'Xiaomi/Ð¡Ã× Ð¡Ã×6', 'Xiaomi/Ð¡Ã× Ð¡Ã×5S', 'Huawei/»ªÎª P9È«ÍøÍ¨', 'Huawei/»ªÎª nova Çà´º°æ', 'honor/ÈÙÒ« ³©Íæ6AÈ«ÍøÍ¨', 'honor/ÈÙÒ« ³©Íæ6X È«ÍøÍ¨×ðÏí°æ', 'Samsung/ÈýÐÇ SM-A8000', 'Samsung/ÈýÐÇ GALAXY S6 SM-G9208', 'Huawei/»ªÎª ÂóÃ¢3S', 'Samsung/ÈýÐÇ SM-J3300', 'Meizu/÷È×å ÷ÈÀ¶note5È«ÍøÍ¨¹«¿ª°æ', 'Meizu/÷È×å PRO 7 Plus', 'ZTE/ÖÐÐË BV0730', 'Philips/·ÉÀûÆÖ E259S', 'Philips/·ÉÀûÆÖ E330', 'Philips/·ÉÀûÆÖ E186A', 'ZTE/ÖÐÐË BV0710', 'ZTE/ÖÐÐË Q5-T', 'Ð¡À±½· V9£¨×ðÏí°æ£©', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËU288+', 'Å¦Âü S99', 'Philips/·ÉÀûÆÖ E311', 'Philips/·ÉÀûÆÖ E331K', 'ZTE/ÖÐÐË L580', 'Å¦Âü V1+', 'ZTE/ÖÐÐË GA350', 'Coolpad/¿áÅÉ 5267', 'ZTE/ÖÐÐË L610', 'Philips/·ÉÀûÆÖ E125', 'Philips/·ÉÀûÆÖ E132X', 'Ð¡À±½· Ð¡À±½·G108', 'Coolpad/¿áÅÉ S158', 'K-Touch/ÌìÓï E2', 'K-Touch/ÌìÓï N2', 'ZTE/ÖÐÐË U288+', 'K-Touch/ÌìÓï T3', 'Ð¡À±½· G-109', 'Philips/·ÉÀûÆÖ e320', 'Ð¡À±½· ºìÀ±½·T33', 'Å¦Âü F189c', 'Å¦Âü F8C', 'Å¦Âü C18', 'Ð¡À±½· V5', 'Å¦Âü L520', 'ZTE/ÖÐÐË L880', 'Å¦Âü V9', 'ÊØ»¤±¦ F888', 'ÊØ»¤±¦ ÉÏº£ÖÐÐË CV19', 'Å¦Âü C360', 'Å¦Âü V18', 'ZTE/ÖÐÐË L638', 'Ð¡À±½· G108C', 'Å¦Âü L66C', 'Å¦Âü A520+', 'Ð¡À±½· H2', 'Ð¡À±½· G2C', 'K-Touch/ÌìÓï X71C', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËL550', 'K-Touch/ÌìÓï L580', 'ÊØ»¤±¦ ÉÏº£ÖÐÐËL600', 'Å¦Âü F1+', 'honor/ÈÙÒ« ÈÙÒ«10Çà´º°æ', 'honor/ÈÙÒ« ÈÙÒ«8X MAX', 'vivo Z1', 'honor/ÈÙÒ« ÈÙÒ«NOTE10', 'vivo Z3', 'Huawei/»ªÎª mate 10 pro', 'Xiaomi/Ð¡Ã× Ð¡Ã× PLAY', 'vivo X23', 'honor/ÈÙÒ« ÈÙÒ«V10', 'Huawei/»ªÎª ³©Ïí MAX', 'vivo Y73']
+# links2 = ['Apple/Æ»ï¿½ï¿½ iPhone 8 Plus', 'Apple/Æ»ï¿½ï¿½ iPhone 8', 'Apple/Æ»ï¿½ï¿½ iPhone X', 'Apple/Æ»ï¿½ï¿½ iPhone XS Max', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½8', 'Huawei/ï¿½ï¿½Îª P20 Pro', 'Huawei/ï¿½ï¿½Îª Mate 20 X', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8X', 'OPPO R17', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6a', 'Huawei/ï¿½ï¿½Îª Mate 20 Pro', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«magic 2', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½8C', 'vivo NEXË«ï¿½ï¿½ï¿½ï¿½', 'vivo X23ï¿½Ã²Ê°ï¿½', 'Xiaomi/Ð¡ï¿½ï¿½ Redmi Note 7', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy S9+ SM-G9650/DS', 'OPPO Find X', 'Meizu/ï¿½ï¿½ï¿½ï¿½ 16th', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ X', '360 n7Pro', 'Apple/Æ»ï¿½ï¿½ iPhone 6s', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY Note9 SM-N9600', 'vivo X21', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6', 'Meizu/ï¿½ï¿½ï¿½ï¿½ 16 x', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V10', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8e', 'OnePlus/Ò»ï¿½ï¿½ A6010', 'vivo Z1ï¿½à´ºï¿½ï¿½', 'vivo Y73', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«10ï¿½à´ºï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8X MAX', 'OnePlus/Ò»ï¿½ï¿½ A6000', 'Huawei/ï¿½ï¿½Îª mate 10 pro', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«9i', 'OPPO R17ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½7X', 'Huawei/ï¿½ï¿½Îª Mate 10 6G+128G', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï·ï¿½Ö»ï¿½ Helo', 'Sony/ï¿½ï¿½ï¿½ï¿½ H9493', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½ï¿½Ö»ï¿½6', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ Z18', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½mix 2', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8 Plus', 'Huawei/ï¿½ï¿½Îª nova 3e', 'OPPO R15x È«ï¿½ï¿½Í¨', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä§', '360 N7', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½6', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä§ï¿½ç¾ºï¿½ï¿½Ï·ï¿½Ö»ï¿½', 'Huawei/ï¿½ï¿½Îª nova 2s', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½7', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ Z5S', 'OPPO A1', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ V8', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ Z5 Pro', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ S6', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6t', 'ZTE/ï¿½ï¿½ï¿½ï¿½ Z999', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ Z5S', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ Z5', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8ï¿½à´ºï¿½ï¿½', 'ZTE/ï¿½ï¿½ï¿½ï¿½ A3', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ X15', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ Z5 Pro', 'ZTE/ï¿½ï¿½ï¿½ï¿½ A0620', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7X', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ X21', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ K5 pro', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7p', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ S562Z', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E289', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ X11', 'Å¦ï¿½ï¿½ P10', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6A', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 1872-A0 ï¿½ï¿½ï¿½ï¿½7 ï¿½ï¿½Ã¨Ê®ï¿½ï¿½ï¿½ê¶¨ï¿½Æ°ï¿½', 'Apple/Æ»ï¿½ï¿½ iPhone 6', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 1873-A0', 'vivo Y83', 'Apple/Æ»ï¿½ï¿½ iPhone XR', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6a', 'Xiaomi/Ð¡ï¿½ï¿½ 6X', 'Huawei/ï¿½ï¿½Îª Mate 20', 'Huawei/ï¿½ï¿½Îª Mate 20 X', 'Apple/Æ»ï¿½ï¿½ iPhone 7 Plus', 'Apple/Æ»ï¿½ï¿½ iPhone XS', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V20', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy S9 SM-G9600/DS', 'OPPO Find Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'OPPO Find X', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V10', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«10ï¿½à´ºï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8e', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY S8 SM-G9500', 'vivo Z3', 'Huawei/ï¿½ï¿½Îª nova 2s', 'vivo NEX ï¿½ì½¢ï¿½ï¿½', 'Meizu/ï¿½ï¿½ï¿½ï¿½ X8', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Ö»ï¿½ Helo', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5 plus', 'Meizu/ï¿½ï¿½ï¿½ï¿½ note8', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 15 PLUS', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ M15', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ z18mini', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ V18', '360 N7Lite', 'ZTE/ï¿½ï¿½ï¿½ï¿½ Blade A4', 'ZTE/ï¿½ï¿½ï¿½ï¿½ V0840', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½NOTE 3', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ S5 Pro GT', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½4', 'Huawei/ï¿½ï¿½Îª Mate 9', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ K5s', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½5S', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8ï¿½à´ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6È«ï¿½ï¿½Í¨', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½4A', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½7 Plus ï¿½ï¿½ï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª c8818', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY C8 SM-C7100', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-W2018', 'Huawei/ï¿½ï¿½Îª Mate RS ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½', 'vivo Y97', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-G9298', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY S4 GT-I9507V', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-G5520', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY Note4 SM-N9100', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY Note8 SM-N9500', 'vivo Y81s', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½7 Plus ï¿½ï¿½ï¿½ï¿½', 'OPPO R17 ProÈ«ï¿½ï¿½Í¨', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-W2017', 'vivo Y93', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V9 playÈ«ï¿½ï¿½Í¨', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ S2', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½5', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-A7000', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY S6 SM-G9209', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ A5', 'Huawei/ï¿½ï¿½Îª Mate 10 ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« V8', 'Ð¡ï¿½ï¿½ï¿½ï¿½ S6', 'OPPO A7', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½4C', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6X È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½', 'vivo X9S', 'vivo X21ï¿½ï¿½Ä»Ö¸ï¿½Æ°ï¿½', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Note6', 'OPPO K1È«ï¿½ï¿½ï¿½ï¿½', 'vivo Z1i', 'OPPO R15x', 'OPPO R15', 'OPPO R17 È«ï¿½ï¿½ï¿½ï¿½', 'OPPO A3', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½ 8e ï¿½à´º', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Note3 È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª Mate8È«ï¿½ï¿½Í¨ 4G', 'OPPO R17 È«ï¿½ï¿½Í¨', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ 8848', 'Huawei/ï¿½ï¿½Îª nova 3', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«magic 2', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«10', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½MIX 3', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½8 ï¿½à´ºï¿½ï¿½', 'OPPO K1', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½ MAX', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8e', 'vivo X23', 'OPPO R17ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½7A', 'vivo Z1ï¿½à´ºï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy S8+ SM-G9550 6+128GB', 'Huawei/ï¿½ï¿½Îª Mate 20 RS ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-W2019', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«ï¿½ï¿½ï¿½ï¿½8A', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½7 Plus ï¿½ï¿½ï¿½ï¿½', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Ö»ï¿½ Helo', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ V8', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ V8 ï¿½ï¿½ï¿½ï¿½', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ z17s', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½MIX', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ S5 Pro', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½8 Í¸ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ S5', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8ï¿½à´ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8 3GB+32GB È«ï¿½ï¿½Í¨ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V9ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6X È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy Folder2 SM-G1650', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy A9 Star SM-G8850', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy Folder SM-G1600', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy A9 SM-A9000', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy S7 Edge SM-G9350', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-W2016', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY C8 SM-C7108', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-G9280', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-G7108V', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½4A 16G', 'vivo Y69', 'Huawei/ï¿½ï¿½Îª mate8 ï¿½Æ¶ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«9È«ï¿½ï¿½Í¨', 'OPPO Find X È«ï¿½ï¿½Í¨', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½Max 16GB', 'OPPO R17 Proï¿½ï¿½ï¿½ï¿½ï¿½', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½E2', 'Huawei/ï¿½ï¿½Îª P9 plus', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5', 'OPPO R15ï¿½Î¾ï¿½ï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª G9 Plus', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½EÈ«ï¿½ï¿½Í¨', 'OnePlus/Ò»ï¿½ï¿½ A5010', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½U20', 'honor/ï¿½ï¿½Ò« V8ï¿½Æ¶ï¿½ï¿½ï¿½Í¨ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V9ï¿½ï¿½ï¿½ï¿½ï¿½', '360 N6', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 1831-A0', 'Ð¡ï¿½ï¿½ï¿½ï¿½ 7x', 'ZTE/ï¿½ï¿½ï¿½ï¿½ A2019 Pro', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ C106-9', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½R15', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï·ï¿½Ö»ï¿½', 'Sony/ï¿½ï¿½ï¿½ï¿½ G8142', '360 N6Pro', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ S351F', '360 vizza', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ K10e70', 'Sony/ï¿½ï¿½ï¿½ï¿½ Xperia XZ2 Premium', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ v800', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E256S', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ C106', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L518', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ Z17 ï¿½ï¿½ï¿½ï¿½ï¿½', 'Ð¡ï¿½ï¿½ï¿½ï¿½ 4Aï¿½ï¿½ï¿½ï¿½ï¿½ä£©', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E171L', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 1831-A0 ï¿½ï¿½ï¿½ï¿½7C ï¿½ï¿½Ã¨Ê®ï¿½ï¿½ï¿½ê¶¨ï¿½Æ°ï¿½', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ M2ï¿½ï¿½ï¿½ï¿½ï¿½', 'ZTE/ï¿½ï¿½ï¿½ï¿½ bv0800', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L680', 'Huawei/ï¿½ï¿½Îª P20', 'vivo X23ï¿½Ã²Ê°ï¿½', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Note5', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½8SE', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½8e', 'OPPO A7X', 'OPPO Find Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª Mate 20 RS ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy A6S SM-G6200', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy A9S SM-A9200', 'vivo NEXÈ«ï¿½ï¿½ï¿½ï¿½', 'vivo x21i', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ E3', 'Huawei/ï¿½ï¿½Îª Mate 9', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy Folder2 SM-G1650', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½ï¿½Ö»ï¿½6 È«ï¿½ï¿½Í¨', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½max2', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½5A', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V9È«ï¿½ï¿½Í¨', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V9È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6X ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-J3110', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy C5 SM-C5000', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-J3308', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy on5 G5500', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy C5 Pro SM-C5010', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«6', 'Huawei/ï¿½ï¿½Îª G9 ï¿½à´ºï¿½ï¿½', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½5È«ï¿½ï¿½Í¨', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½U20È«ï¿½ï¿½Í¨', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ z17 mini', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ VCR-A0', 'Ð¡ï¿½ï¿½ï¿½ï¿½ 7P', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Note6X', 'ZTE/ï¿½ï¿½ï¿½ï¿½ bv0800', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BA602', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ X598', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BA601', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E218L', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E207l', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 5380CA', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E212A', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ Y91-921', 'ZTE/ï¿½ï¿½ï¿½ï¿½ A606', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ K320t', '360 N6 Lite', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ T9C', '360 F4S', 'ZTE/ï¿½ï¿½ï¿½ï¿½ V0920', 'Å¦ï¿½ï¿½ R11', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ A806', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ T5', 'HTC Uï¿½ï¿½1w', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BA610C', 'Lenovo/ï¿½ï¿½ï¿½ï¿½ A3500', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BA510', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BA603', 'nubia/Å¬ï¿½ï¿½ï¿½ï¿½ Z17mini 6Gï¿½ï¿½', 'Å¦ï¿½ï¿½ NX1', 'Å¦ï¿½ï¿½ l6+', 'Å¦ï¿½ï¿½ C9', 'Å¦ï¿½ï¿½ F189', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E107', 'Å¦ï¿½ï¿½ L8S', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ S518', 'Å¦ï¿½ï¿½ V1', 'Å¦ï¿½ï¿½ A688', 'Å¦ï¿½ï¿½ F9C', 'Å¦ï¿½ï¿½ L99', 'Ð¡ï¿½ï¿½ï¿½ï¿½ L9', 'Ð¡ï¿½ï¿½ï¿½ï¿½ G2', 'Å¦ï¿½ï¿½ F518', 'Å¦ï¿½ï¿½ V98', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E160', 'Ð¡ï¿½ï¿½ï¿½ï¿½ G108', 'Å¦ï¿½ï¿½ L660S', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ T2', 'Å¦ï¿½ï¿½ V7', 'Å¦ï¿½ï¿½ L9', 'Huawei/ï¿½ï¿½Îª nova 3i', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½9', 'Xiaomi/Ð¡ï¿½ï¿½ MIX 2S', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½ 8e ï¿½à´º', 'Huawei/ï¿½ï¿½Îª Mate 20 RS ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½', 'OPPO R15x È«ï¿½ï¿½Í¨', 'OPPO K1È«ï¿½ï¿½Í¨', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½Note 2', 'Xiaomi/Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Note4', 'Huawei/ï¿½ï¿½Îª P8ï¿½ï¿½×¼ï¿½ï¿½', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½Ã¢6', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«9', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6X ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-A5108', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy S7 SM-G9308', 'Samsung/ï¿½ï¿½ï¿½ï¿½ Galaxy SM-J5008', 'Samsung/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ GALAXY On5 SM-5510', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY Note 3 SM-N9009', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-A5009', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½A5', 'Meizu/ï¿½ï¿½ï¿½ï¿½ MX5 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'vivo X21 FIFAï¿½ï¿½ï¿½ç±­ï¿½Ç·ï¿½ï¿½ï¿½', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ C106-8', 'ZTE/ï¿½ï¿½ï¿½ï¿½ Ô¶ï¿½ï¿½4S', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ C106ï¿½ï¿½È«ï¿½ï¿½Í¨ï¿½ï¿½', 'Ð¡ï¿½ï¿½ï¿½ï¿½ V11', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ 8818', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E209J', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E258S', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GM-Q8', 'Ð¡ï¿½ï¿½ï¿½ï¿½ 4A', 'Ð¡ï¿½ï¿½ï¿½ï¿½ 6p', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L530G', 'Ð¡ï¿½ï¿½ï¿½ï¿½ A1', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6A', 'ZTE/ï¿½ï¿½ï¿½ï¿½ A2017', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½Plus', 'Å¦ï¿½ï¿½ M560C', 'Å¦ï¿½ï¿½ L66', 'Å¦ï¿½ï¿½ X8', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ L660C', 'Ð¡ï¿½ï¿½ï¿½ï¿½ g109', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½L518', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ H998', 'Å¦ï¿½ï¿½ C9S', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½L800', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½K188', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ T2S', 'Å¦ï¿½ï¿½ Q99+', 'Ð¡ï¿½ï¿½ï¿½ï¿½ H1', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ N1', 'Å¦ï¿½ï¿½ A520', 'vivo X21s', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ S628', 'Å¦ï¿½ï¿½ C5', 'Å¦ï¿½ï¿½ Q99', 'Å¦ï¿½ï¿½ N99', 'Å¦ï¿½ï¿½ F1', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ S688', 'Å¦ï¿½ï¿½ L8', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ ART-T0', 'ZTE/ï¿½ï¿½ï¿½ï¿½ S158', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E255', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E180', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E170', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ MTS-T0', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ V18', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E105', 'ZTE/ï¿½ï¿½ï¿½ï¿½ CCV19', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E151Y', 'Å¦ï¿½ï¿½ F516', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ e181', 'ZTE/ï¿½ï¿½ï¿½ï¿½ F555', 'ZTE/ï¿½ï¿½ï¿½ï¿½ CV26', 'ï¿½Ø»ï¿½ï¿½ï¿½ L105', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L550', 'Å¦ï¿½ï¿½ L99S', 'Å¦ï¿½ï¿½ X6+', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½CV28', 'Apple/Æ»ï¿½ï¿½ iPhone 7', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½Max3', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½8 ï¿½ï¿½Ä»Ö¸ï¿½Æ°ï¿½', 'OPPO R17 Pro', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï·ï¿½Ö»ï¿½ Helo', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½7C', 'OPPO A5È«ï¿½ï¿½Í¨', 'OPPO A1', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½6', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½5S', 'Huawei/ï¿½ï¿½Îª P9È«ï¿½ï¿½Í¨', 'Huawei/ï¿½ï¿½Îª nova ï¿½à´ºï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6AÈ«ï¿½ï¿½Í¨', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½ï¿½ï¿½6X È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-A8000', 'Samsung/ï¿½ï¿½ï¿½ï¿½ GALAXY S6 SM-G9208', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½Ã¢3S', 'Samsung/ï¿½ï¿½ï¿½ï¿½ SM-J3300', 'Meizu/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½note5È«ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'Meizu/ï¿½ï¿½ï¿½ï¿½ PRO 7 Plus', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BV0730', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E259S', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E330', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E186A', 'ZTE/ï¿½ï¿½ï¿½ï¿½ BV0710', 'ZTE/ï¿½ï¿½ï¿½ï¿½ Q5-T', 'Ð¡ï¿½ï¿½ï¿½ï¿½ V9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£©', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½U288+', 'Å¦ï¿½ï¿½ S99', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E311', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E331K', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L580', 'Å¦ï¿½ï¿½ V1+', 'ZTE/ï¿½ï¿½ï¿½ï¿½ GA350', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ 5267', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L610', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E125', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E132X', 'Ð¡ï¿½ï¿½ï¿½ï¿½ Ð¡ï¿½ï¿½ï¿½ï¿½G108', 'Coolpad/ï¿½ï¿½ï¿½ï¿½ S158', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ E2', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ N2', 'ZTE/ï¿½ï¿½ï¿½ï¿½ U288+', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ T3', 'Ð¡ï¿½ï¿½ï¿½ï¿½ G-109', 'Philips/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ e320', 'Ð¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T33', 'Å¦ï¿½ï¿½ F189c', 'Å¦ï¿½ï¿½ F8C', 'Å¦ï¿½ï¿½ C18', 'Ð¡ï¿½ï¿½ï¿½ï¿½ V5', 'Å¦ï¿½ï¿½ L520', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L880', 'Å¦ï¿½ï¿½ V9', 'ï¿½Ø»ï¿½ï¿½ï¿½ F888', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½ CV19', 'Å¦ï¿½ï¿½ C360', 'Å¦ï¿½ï¿½ V18', 'ZTE/ï¿½ï¿½ï¿½ï¿½ L638', 'Ð¡ï¿½ï¿½ï¿½ï¿½ G108C', 'Å¦ï¿½ï¿½ L66C', 'Å¦ï¿½ï¿½ A520+', 'Ð¡ï¿½ï¿½ï¿½ï¿½ H2', 'Ð¡ï¿½ï¿½ï¿½ï¿½ G2C', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ X71C', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½L550', 'K-Touch/ï¿½ï¿½ï¿½ï¿½ L580', 'ï¿½Ø»ï¿½ï¿½ï¿½ ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½L600', 'Å¦ï¿½ï¿½ F1+', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«10ï¿½à´ºï¿½ï¿½', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«8X MAX', 'vivo Z1', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«NOTE10', 'vivo Z3', 'Huawei/ï¿½ï¿½Îª mate 10 pro', 'Xiaomi/Ð¡ï¿½ï¿½ Ð¡ï¿½ï¿½ PLAY', 'vivo X23', 'honor/ï¿½ï¿½Ò« ï¿½ï¿½Ò«V10', 'Huawei/ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½ MAX', 'vivo Y73']
 # print(len(links2))
 # print(len(list(set(links2))))
-# word_need_to_remove = ['(ÊÖ»ú)', '£¨ÊÖ»ú£©','ÁÒÑæºì', '£¨¸ßÅä£©', '(BV0720)', 'µç¾º','µç¾ºÊÖ»ú', 'ÓÎÏ·', 'È«ÍøÍ¨', '×ðÏí°æ', '±êÅä°æ',  '±êÅä', '¸ßÅä', '4G', 'ÐÂÄê°æ', 'È«ÃæÆÁ' ,'ÃÎ¾µ°æ', 'ºìÒÂ°æ' ,'¹«¿ª°æ']
+# word_need_to_remove = ['(ï¿½Ö»ï¿½)', 'ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ä£©', '(BV0720)', 'ï¿½ç¾º','ï¿½ç¾ºï¿½Ö»ï¿½', 'ï¿½ï¿½Ï·', 'È«ï¿½ï¿½Í¨', 'ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½',  'ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½', '4G', 'ï¿½ï¿½ï¿½ï¿½ï¿½', 'È«ï¿½ï¿½ï¿½ï¿½' ,'ï¿½Î¾ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½Â°ï¿½' ,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½']
 # for x in links2:
 #     print(x)
 #     for y in word_need_to_remove:
 #         x = x.replace(y,'')
-#     x = x.replace('Redmi', 'ºìÃ×')
+#     x = x.replace('Redmi', 'ï¿½ï¿½ï¿½ï¿½')
 #     result_array = x.split(' ')
 #     # print(result_array)
 #     if '/' in result_array[0]:
 #         brand = result_array[0].split('/')[1]
-#         if brand == 'Æ»¹û': brand = 'apple'
-#         elif brand == 'ÈÙÒ«' : brand = '»ªÎª'
+#         if brand == 'Æ»ï¿½ï¿½': brand = 'apple'
+#         elif brand == 'ï¿½ï¿½Ò«' : brand = 'ï¿½ï¿½Îª'
 #         elif brand in ''.join(result_array[1:]).lower(): brand = ''
 #     else: brand = result_array[0].lower()
 #     # print(brand)
-#     if brand == 'ÈýÐÇ' and re.search('[0-9]?G?\+?[0-9]+GB?', result_array[-1]):
+#     if brand == 'ï¿½ï¿½ï¿½ï¿½' and re.search('[0-9]?G?\+?[0-9]+GB?', result_array[-1]):
 #         model = brand + ''.join(result_array[1:-2]).lower()
-#     elif brand == 'ÈýÐÇ' or re.search('[0-9]?G?\+?[0-9]+GB?', result_array[-1]):
+#     elif brand == 'ï¿½ï¿½ï¿½ï¿½' or re.search('[0-9]?G?\+?[0-9]+GB?', result_array[-1]):
 #         model = brand + ''.join(result_array[1:-1]).lower()
-#     elif brand == 'ÊØ»¤±¦':
-#         model = brand + ''.join(result_array[1:]).lower().replace('ÉÏº£ÖÐÐË','')
+#     elif brand == 'ï¿½Ø»ï¿½ï¿½ï¿½':
+#         model = brand + ''.join(result_array[1:]).lower().replace('ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½','')
 #     else:
 #         model = brand + ''.join(result_array[1:]).lower()
 #     if model in links:
-#         print(brand + '£º' + model + 'ÒÑÔÚgroupÖÐ´æÔÚ')
-#         # ´æÔÚ,»ñµÃËûµÄÐÅÏ¢¡£
-#         # ²åÈë×é£¬default_idÊÇµÚÒ»¸ö½ø×éµÄitem
+#         print(brand + 'ï¿½ï¿½' + model + 'ï¿½ï¿½ï¿½ï¿½groupï¿½Ð´ï¿½ï¿½ï¿½')
+#         # ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+#         # ï¿½ï¿½ï¿½ï¿½ï¿½é£¬default_idï¿½Çµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½item
 #         # cursor.execute(
 #         #     'insert into t_group (name, ram, rom, model, brand, default_id) values( "%s",  "%s" , "%s" , "%s" , "%s" , "%s" )' % (
 #         #     phone.name, phone.ram, phone.rom, phone.model, phone.brand, phone.id))
-#         # # Ìá½»µ½Êý¾Ý¿âÖ´ÐÐ
+#         # # ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ö´ï¿½ï¿½
 #         # mysql_db.commit()
 #     else:
-#         print(brand + '£º' + model + 'groupÖÐ²»´æÔÚ')
+#         print(brand + 'ï¿½ï¿½' + model + 'groupï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½')
 #
 # desc_headers = {
 #     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -128,75 +128,75 @@ from items import Phone
 from scrapy import Selector
 import json
 
-# def parse_as_phone(x):  #²ÎÊýÊÇx ºÍ selector
+# def parse_as_phone(x):  #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½x ï¿½ï¿½ selector
 #     phone = Phone()
 #     response = requests.get('https://detail.tmall.com/item.htm?id=' + x,headers = desc_headers)
 #     sku_list_result = re.search('\"skuList\":(.*?),\"defSelected', response.text)
 #     #print(response.text)
 #     selector = Selector(text=response.text)
 #     prop = selector.xpath('//dl[contains(@class,"tm-sale-prop")]/dt/text()').extract()
-#     #print(prop)  # ['ÍøÂçÀàÐÍ', '»úÉíÑÕÉ«', '´æ´¢ÈÝÁ¿']
+#     #print(prop)  # ['ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«', 'ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½']
 #
 #     if sku_list_result:
 #         #print(sku_list_result.group(1))
 #         obj = json.loads(sku_list_result.group(1))
-#         #print(obj) # [{'names': '4GÈ«ÍøÍ¨ ê×Ê¯ºÚ ¹Ù·½±êÅä 4+32GB ', 'pvs': '10004:653780895;1627207:381198578;5919063:6536025;12304035:697918458', 'skuId': '3742010944272'},...]
+#         #print(obj) # [{'names': '4GÈ«ï¿½ï¿½Í¨ ï¿½ï¿½Ê¯ï¿½ï¿½ ï¿½Ù·ï¿½ï¿½ï¿½ï¿½ï¿½ 4+32GB ', 'pvs': '10004:653780895;1627207:381198578;5919063:6536025;12304035:697918458', 'skuId': '3742010944272'},...]
 #         for i in range(0, len(obj)):
 #             phone.description = ''
 #             phone.pack_list = ''
-#             #print(obj[i]['names']) # ÎÞÐèºÏÔ¼°æ ÒøÉ« 64GB
+#             #print(obj[i]['names']) # ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ ï¿½ï¿½É« 64GB
 #             prop_value = str(obj[i]['names']).split(' ')
 #             #print(obj[i]['skuId']) # skuid 3666200559081
-#             # ÕâÀïÅÐ¶ÏÊÇ·ñÒªÈ¥²åÈë
+#             # ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ÒªÈ¥ï¿½ï¿½ï¿½ï¿½
 #
 #             # * id
 #             phone.id = 'tmail' + str(x) + '&' + obj[i]['skuId']
 #
 #             if db['phone'].find_one({'id': phone.id}, {'id': 1}) is None:
-#                 # ÅÐ¶Ï´æ´¢ÈÝÁ¿ÊÇ·ñÊÇ (1) 64GB (2) 3GB+64GB ËùÓÐÐÅÏ¢¼Óµ½descÖÐ
+#                 # ï¿½Ð¶Ï´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ (1) 64GB (2) 3GB+64GB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Óµï¿½descï¿½ï¿½
 #                 for j in range(0, len(prop)):
 #                     # * description
 #                     phone.description = phone.description + prop[j] + ':' + prop_value[j] + ', '
-#                     if prop[j] == '´æ´¢ÈÝÁ¿':
+#                     if prop[j] == 'ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½':
 #                         if prop_value[j].find('+') != -1:
-#                             # ÓÐ¼ÓºÅ ±ÈÈç3+64GBÕâÖÖ
+#                             # ï¿½Ð¼Óºï¿½ ï¿½ï¿½ï¿½ï¿½3+64GBï¿½ï¿½ï¿½ï¿½
 #                             # * ram & rom
 #                             phone.ram = (prop_value[j])[0: int(prop_value[j].find('+'))] + 'GB'
 #                             phone.rom = prop_value[j][int(prop_value[j].find('+')+1):]
 #                         else:
-#                             # Ã»ÓÐ¼ÓºÅ ±ÈÈç256GbÕâÖÖ
-#                             # phone.ram = 'ÔÝÎÞÐÅÏ¢'
+#                             # Ã»ï¿½Ð¼Óºï¿½ ï¿½ï¿½ï¿½ï¿½256Gbï¿½ï¿½ï¿½ï¿½
+#                             # phone.ram = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #                             phone.rom = prop_value[j]
 #                 # * name
 #                 phone.name = selector.xpath('/html/head/title/text()').extract_first()
-#                 # * brand model cpu resolution screen_size r_camera hot_spot ±í¸ñÀï
-#                 phone.brand = phone.model = phone.cpu = phone.resolution = phone.screen_size = phone.r_camera = phone.hot_spot = 'ÔÝÎÞÐÅÏ¢'
+#                 # * brand model cpu resolution screen_size r_camera hot_spot ï¿½ï¿½ï¿½ï¿½ï¿½
+#                 phone.brand = phone.model = phone.cpu = phone.resolution = phone.screen_size = phone.r_camera = phone.hot_spot = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #                 ths = [str(z).strip() for z in selector.xpath(
 #                     '//table[@class="tm-tableAttr"][1]/tbody/tr[not(@class="tm-tableAttrSub")]/th/text()').extract()]
 #                 # print(ths)
 #                 tds = [str(z).replace('\xa0', ' ').strip() for z in selector.xpath(
 #                     '//table[@class="tm-tableAttr"][1]/tbody/tr[not(@class="tm-tableAttrSub")]/td/text()').extract()]
 #                 # print(tds)
-#                 if 'Æ·ÅÆ' in ths:
-#                     phone.brand = tds[ths.index('Æ·ÅÆ')]
-#                 if 'ÐÍºÅ' in ths:
-#                     phone.model = tds[ths.index('ÐÍºÅ')]
-#                 if 'CPUÐÍºÅ' in ths:
-#                     phone.cpu = tds[ths.index('CPUÐÍºÅ')]
-#                 if 'CPUÐÍºÅ' not in ths and 'CPUÆ·ÅÆ' in ths:
-#                     phone.cpu = tds[ths.index('CPUÆ·ÅÆ')]
-#                 if '·Ö±æÂÊ' in ths:
-#                     phone.resolution = tds[ths.index('·Ö±æÂÊ')]
-#                 if 'ÆÁÄ»³ß´ç' in ths:
-#                     phone.screen_size = tds[ths.index('ÆÁÄ»³ß´ç')]
-#                 if 'ºóÖÃÉãÏñÍ·' in ths:
-#                     phone.r_camera = tds[ths.index('ºóÖÃÉãÏñÍ·')]
-#                 if 'ÊÖ»úÀàÐÍ' in ths:
-#                     phone.hot_spot = str(tds[ths.index('ÊÖ»úÀàÐÍ')]).split(' ')
-#                 if 'ÔËÐÐÄÚ´æRAM' in ths and phone.ram.find('GB') == -1:
-#                     phone.ram = tds[ths.index('ÔËÐÐÄÚ´æRAM')]
+#                 if 'Æ·ï¿½ï¿½' in ths:
+#                     phone.brand = tds[ths.index('Æ·ï¿½ï¿½')]
+#                 if 'ï¿½Íºï¿½' in ths:
+#                     phone.model = tds[ths.index('ï¿½Íºï¿½')]
+#                 if 'CPUï¿½Íºï¿½' in ths:
+#                     phone.cpu = tds[ths.index('CPUï¿½Íºï¿½')]
+#                 if 'CPUï¿½Íºï¿½' not in ths and 'CPUÆ·ï¿½ï¿½' in ths:
+#                     phone.cpu = tds[ths.index('CPUÆ·ï¿½ï¿½')]
+#                 if 'ï¿½Ö±ï¿½ï¿½ï¿½' in ths:
+#                     phone.resolution = tds[ths.index('ï¿½Ö±ï¿½ï¿½ï¿½')]
+#                 if 'ï¿½ï¿½Ä»ï¿½ß´ï¿½' in ths:
+#                     phone.screen_size = tds[ths.index('ï¿½ï¿½Ä»ï¿½ß´ï¿½')]
+#                 if 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·' in ths:
+#                     phone.r_camera = tds[ths.index('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·')]
+#                 if 'ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½' in ths:
+#                     phone.hot_spot = str(tds[ths.index('ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½')]).split(' ')
+#                 if 'ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½RAM' in ths and phone.ram.find('GB') == -1:
+#                     phone.ram = tds[ths.index('ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½RAM')]
 #                 if phone.ram.find('GB') == -1:
-#                     phone.ram = 'ÔÝÎÞÐÅÏ¢'
+#                     phone.ram = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #                     # * packlist
 #                 ths = selector.xpath(
 #                     '//table[@class="tm-tableAttr"][2]/tbody/tr[not(@class="tm-tableAttrSub")]/th/text()').extract()
@@ -207,18 +207,18 @@ import json
 #                 for z in range(0, len(ths)):
 #                     phone.pack_list = phone.pack_list + ths[z] + 'x' + tds[z] + ','
 #                 if len(ths) == 0:
-#                     phone.pack_list = 'ÔÝÎÞÐÅÏ¢'
+#                     phone.pack_list = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #
 #                 # * url source video_url shop thumb_pic detail_url
 #                 phone.url = detail_page_head + 'id=' + x + '&skuid=' + obj[i][
 #                     'skuId'] + '&sku_properties=' + obj[i]['pvs']
 #
-#                 phone.source = 'ÌìÃ¨'
+#                 phone.source = 'ï¿½ï¿½Ã¨'
 #
 #                 video_url = selector.xpath('.').re(
 #                     'imgVedioUrl\":\"//cloud.video.taobao.com/play/.*/(.*?).swf')
 #                 if video_url == []:
-#                     phone.video_url = 'ÔÝÎÞÐÅÏ¢'
+#                     phone.video_url = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #                 else:
 #                     phone.video_url = 'http://cloud.video.taobao.com/play/u/p/1/e/6/t/1/' + video_url[
 #                         0] + '.mp4'
@@ -243,8 +243,9 @@ import json
 #                         '<img align=\"absmiddle\" src=\"(.*?)\"') + desc_selector.xpath('.').re('<img src=\"(.*?)\"')
 #                 phone.detail_url = desc_url
 #
-#                 # * tmail ²»´æÔÚµÄ memory_card max_mem_sup figer battery f_camera
-#                 phone.memory_card = phone.max_mem_sup = phone.figer = phone.battery = phone.f_camera = 'ÔÝÎÞÐÅÏ¢'
+#                 # * tmail ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ memory_card max_mem_sup figer battery f_camera
+#                 phone.memory_card = phone.max_mem_sup = phone.figer = phone.battery = phone.f_camera = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢'
 #                 phone._id = phone.id
 #                 print(phone.__dict__)
 #                 db['phone'].insert(phone.__dict__)
+# 123
